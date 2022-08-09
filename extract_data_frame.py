@@ -33,7 +33,7 @@ class TweetDfExtractor:
     def __init__(self, tweets_list):
         
         self.tweets_list = tweets_list
-
+'''
     # an example function
     def find_statuses_count(self)->list:
         statuses_count 
@@ -93,9 +93,9 @@ class TweetDfExtractor:
         
         return location
 
-    
+    '''    
         
-        
+'''   
     def get_tweet_df(self, save=False)->pd.DataFrame:
         """required column to be generated you should be creative and add more features"""
         
@@ -135,3 +135,5 @@ if __name__ == "__main__":
     tweet_df = tweet.get_tweet_df() 
 
     # use all defined functions to generate a dataframe with the specified columns above
+    
+'''
