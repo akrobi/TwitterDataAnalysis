@@ -13,7 +13,7 @@ def read_json(json_file: str)->list:
         # if count == 5:
         #     break
 
-    df = pd.read_json("data/global_twitter_data/global_twitter_data.json")
+    df = pd.read_json(json_file)
 
     return len(tweets_data), tweets_data
 
