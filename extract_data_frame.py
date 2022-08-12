@@ -196,7 +196,7 @@ class TweetDfExtractor:
         mysampledf = df.head(10)
 
         if save:
-            df.to_csv('processed_tweet_data.csv', index=False)
+            df.to_csv('database/processed_tweet_data.csv', index=False)
             mysampledf.to_json('data/sample.json')
             print('Files Successfully Saved.!!!')
         
@@ -211,6 +211,10 @@ if __name__ == "__main__":
                 'followers_count','friends_count','possibly_sensitive', 'hashtags', 
                 'user_mentions', 'place', 'place_coord_boundaries']
     _, tweet_list = read_json("data/global_twitter_data.json")
+
+    import pprint
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(tweet_list[0])
 
     tweet = TweetDfExtractor(tweet_list)
     tweet_df = tweet.get_tweet_df() 
