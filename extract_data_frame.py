@@ -163,6 +163,13 @@ class TweetDfExtractor:
 
         return location
 
+    def find_if_quote(self) -> list: 
+        if_quote = []
+        for tweet in self.tweets_list:
+            if_quote.append(tweet['is_quote_status'])
+        
+        return if_quote
+
            
     def get_tweet_df(self, save=False) -> pd.DataFrame:
         #required column to be generated you should be creative and add more features
@@ -170,7 +177,7 @@ class TweetDfExtractor:
         columns = ['created_at', 'source', 'original_text', ''''sentiment',''' 'polarity', 
                     'subjectivity', 'lang', 'favorite_count', 'retweet_count', 
                     'original_author', 'followers_count','friends_count',
-                    'possibly_sensitive', 'hashtags', 'user_mentions', 'place']
+                    'possibly_sensitive', 'hashtags', 'user_mentions', 'place', 'if_quote']
       
         created_at = self.find_created_time()
         source = self.find_source()
@@ -187,10 +194,11 @@ class TweetDfExtractor:
         hashtags = self.find_hashtags()
         mentions = self.find_mentions()
         location = self.find_location()
-        
+        if_quote = self.find_if_quote()
+
         data = zip(created_at, source, text, polarity, subjectivity, lang, fav_count, 
                     retweet_count, screen_name, follower_count, friends_count, 
-                    sensitivity, hashtags, mentions, location)
+                    sensitivity, hashtags, mentions, location, if_quote)
         df = pd.DataFrame(data=data, columns=columns)
         
         mysampledf = df.head(10)
@@ -209,12 +217,12 @@ if __name__ == "__main__":
                 'sentiment','polarity','subjectivity', 'lang', 'favorite_count', 
                 'retweet_count', 'original_author', 'screen_count', 
                 'followers_count','friends_count','possibly_sensitive', 'hashtags', 
-                'user_mentions', 'place', 'place_coord_boundaries']
+                'user_mentions', 'place', 'place_coord_boundaries', 'if_quote']
     _, tweet_list = read_json("data/global_twitter_data.json")
 
-    import pprint
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(tweet_list[0])
+    # import pprint
+    # pp = pprint.PrettyPrinter(indent=4)
+    # pp.pprint(tweet_list[0])
 
     tweet = TweetDfExtractor(tweet_list)
     tweet_df = tweet.get_tweet_df() 
